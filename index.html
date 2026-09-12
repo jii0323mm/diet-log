@@ -7,25 +7,26 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="今天吃了">
-<meta name="theme-color" content="#EFF1EC">
+<meta name="theme-color" content="#0E0E12">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="今天吃了">
 <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADmUlEQVR4nO3d0W3bMBSGUaboPBmhM3SHPmaCTtApukwn6wMBI0DzF7EskpfyOQM4Iv3pSpAR++X17XuDj3xZfQDUJQ4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxEX4e++p9fv4e+Pq21bz9/DHrll0E/qSGLyUYkMuSyooz5Ruz5+XEoY5XTd94NKdHJcRgba527/yYHkTiIxEEkDqKT4xj3tI7POHf/TQ6i8+MwPFY5feeHTA59zDdiz0d98NZ5JjbBfp/KcgFuSInEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB9HY35VtvsR4sKHfJG5yEA2fHPd68i/VLzVoTQ4icRCJg0gcRMPjePIbzKFG7225yVHqdn2yamsvFwd1iIOoYhzVpuscBVc9Iw73pCNM2NWKk4MiisZRcMYOVXO9k+JwZTnXnP0sOjla1ZNphLIrrRsHy82L48AkLHtKnejAGqddo6tPjmv3UXx1U+NwW/q4mXtYfXK08qfXYfXXNTuOY+HX38d7HVvR5NG7YHLoY4sy2haXlZtr9LHRKtbEcfgk2GhnP3T4+Jfcy+80Obp9+9juyJfF8cipsN0ut8eOedUjgJfXt+9L/nD34Nu8xYOTfde4+LLy4Mrrj5B9y2jLJ0f3+HtccIRcYFHl/pH6mP5OLN/Nrv48+6QSk6OduqELE7nGKm6qxNHOPuEmb+7WB58UiqONGchDN3q7A75LrTi6QdfsEze9/hGeomIcbco93V3vRLXjmaNoHO1C9/yfUbCMtvwh2H/U3K8Ryq60bhyt8K6dqPIa615W3rvkJaZyFl3pyXFTfx/vtcWK9pgcNxcYIVtk0W0WR7dpIhtl0W0ZR7dRIttl0W0cR1c8kU2z6LaPoyuYyNZZdBeJ42Z5JRdo4uZqcdxMruRKTdxcNo73nuRD1NM9RRz/qvytGHU8aRx8xh6Pz1lCHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHER/AUXB2PtIAMqDAAAAAElFTkSuQmCC">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#EFF1EC; --card:#FAFBF8; --ink:#17201A; --soft:#5E6A61;
-  --line:#D8DDD3; --green:#2E6B50; --wash:#C9DCD0;
-  --over:#B8422C; --amber:#9A7420;
-  --r:14px;
+  color-scheme:dark;
+  --paper:#0E0E12; --card:#17171D; --ink:#F4F4F7; --soft:#8B8B9A;
+  --line:#282833; --green:#FF6A3D; --wash:#2B1B14;
+  --over:#FF4D6D; --amber:#E8B04B;
+  --r:18px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{
   background:var(--paper); color:var(--ink);
-  font-family:"Familjen Grotesk","PingFang TC","Noto Sans TC",system-ui,sans-serif;
+  font-family:"Onest","PingFang TC","Noto Sans TC",system-ui,sans-serif;
   font-size:16px; line-height:1.55;
   padding:env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom));
   -webkit-font-smoothing:antialiased;
@@ -76,9 +77,9 @@ h2{font-size:15px;font-weight:600;margin:0 0 12px}
 .empty{color:var(--soft);font-size:14px;padding:8px 0 4px}
 
 /* ── 底部固定按鈕 ── */
-.dock{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(239,241,236,0) 0%,var(--paper) 34%);padding:20px 20px calc(16px + env(safe-area-inset-bottom));z-index:20}
+.dock{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(14,14,18,0) 0%,var(--paper) 34%);padding:20px 20px calc(16px + env(safe-area-inset-bottom));z-index:20}
 .dock .wrap{display:flex;gap:10px;padding:0}
-.btn{flex:1;border:0;border-radius:var(--r);padding:15px 16px;font-size:16px;font-weight:600;background:var(--green);color:#fff}
+.btn{flex:1;border:0;border-radius:var(--r);padding:15px 16px;font-size:16px;font-weight:600;background:var(--green);color:#160B06}
 .btn.ghost{flex:none;background:var(--card);color:var(--ink);border:1px solid var(--line);font-weight:500}
 .btn:disabled{opacity:.5}
 .btn:active{transform:translateY(1px)}
@@ -88,10 +89,10 @@ h2{font-size:15px;font-weight:600;margin:0 0 12px}
 label{display:block;font-size:13px;color:var(--soft);margin-bottom:5px}
 input[type=text],input[type=number],input[type=url],select,textarea{
   width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
-  background:#fff;font:inherit;color:inherit;-webkit-appearance:none;appearance:none;
+  background:#0A0A0E;font:inherit;color:inherit;-webkit-appearance:none;appearance:none;
 }
 textarea{resize:vertical;min-height:64px}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235E6A61' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B8B9A' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .field{margin-bottom:14px}
 .field:last-child{margin-bottom:0}
@@ -99,16 +100,16 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 /* ── 份量選擇 ── */
 .portions{display:flex;flex-wrap:wrap;gap:7px}
-.portions button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 0;flex:1 0 calc(25% - 6px);font-size:15px;font-variant-numeric:tabular-nums}
-.portions button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff;font-weight:600}
+.portions button{border:1px solid var(--line);background:#0A0A0E;border-radius:9px;padding:9px 0;flex:1 0 calc(25% - 6px);font-size:15px;font-variant-numeric:tabular-nums}
+.portions button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#160B06;font-weight:600}
 input[type=range]{width:100%;-webkit-appearance:none;background:none;margin:14px 0 0}
 input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--line);border-radius:2px}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--green);margin-top:-11px;border:3px solid var(--paper)}
 
 /* ── 信心度 ── */
 .chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:5px 10px;border-radius:20px;background:var(--wash);color:var(--green)}
-.chip.medium{background:#F0E7CC;color:var(--amber)}
-.chip.low{background:#F2DCD6;color:var(--over)}
+.chip.medium{background:#2E2617;color:var(--amber)}
+.chip.low{background:#331A20;color:var(--over)}
 
 /* ── 明細 ── */
 .items{margin:14px 0 0;padding:0;list-style:none;font-size:14px}
@@ -130,14 +131,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 @keyframes dots{0%{content:''}25%{content:'·'}50%{content:'··'}75%{content:'···'}}
 
 /* ── 建議面板 ── */
-.sheet{position:fixed;inset:0;background:rgba(23,32,26,.35);z-index:40;display:none;align-items:flex-end}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:40;display:none;align-items:flex-end}
 .sheet.on{display:flex}
 .sheet .panel{background:var(--paper);width:100%;max-height:78vh;overflow:auto;border-radius:20px 20px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
 .sheet h2{margin-bottom:10px}
 .sheet .text{white-space:pre-wrap;font-size:15px;line-height:1.7}
 .sheet .close{width:100%;margin-top:18px;border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:13px;font-weight:500}
 
-.err{background:#F7E3DE;border:1px solid #E2BDB3;color:var(--over);border-radius:10px;padding:11px 13px;font-size:14px;margin-bottom:14px}
+.err{background:#2B1219;border:1px solid #5A2430;color:var(--over);border-radius:10px;padding:11px 13px;font-size:14px;margin-bottom:14px}
 .topnav{display:flex;justify-content:space-between;align-items:center;padding:18px 0 6px}
 .topnav button{background:none;border:0;color:var(--soft);font-size:15px;padding:4px}
 .center{text-align:center}
@@ -162,11 +163,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
         </clipPath>
       </defs>
       <g clip-path="url(#bowlClip)">
-        <rect x="0" y="0" width="200" height="148" fill="#E3E8DF"/>
-        <rect id="fluid" class="fluid" x="0" y="46" width="200" height="120" fill="#2E6B50" style="transform:translateY(120px)"/>
+        <rect x="0" y="0" width="200" height="148" fill="#1C1C24"/>
+        <rect id="fluid" class="fluid" x="0" y="46" width="200" height="120" fill="#FF6A3D" style="transform:translateY(120px)"/>
       </g>
-      <path d="M24 46 H176 L158 118 C156 126 149 130 141 130 H59 C51 130 44 126 42 118 Z" fill="none" stroke="#17201A" stroke-width="2.5" stroke-linejoin="round"/>
-      <rect x="16" y="34" width="168" height="13" rx="6.5" fill="#17201A"/>
+      <path d="M24 46 H176 L158 118 C156 126 149 130 141 130 H59 C51 130 44 126 42 118 Z" fill="none" stroke="#3C3C4A" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="16" y="34" width="168" height="13" rx="6.5" fill="#3C3C4A"/>
     </svg>
 
     <div class="readout" id="readout">
@@ -319,13 +320,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;heigh
 <div class="dock" id="dock">
   <div class="wrap">
     <button class="btn ghost" id="askBtn" style="padding:15px 18px">建議</button>
-    <button class="btn" id="shootBtn">拍照記錄</button>
+    <button class="btn" id="shootBtn">加一餐</button>
     <button class="btn" id="saveBtn" style="display:none">存進今天</button>
     <button class="btn" id="saveSettings" style="display:none">儲存設定</button>
   </div>
 </div>
 
-<input type="file" id="fileInput" accept="image/*" capture="environment" hidden>
+<input type="file" id="fileInput" accept="image/*" hidden>
 
 <script>
 "use strict";
@@ -445,7 +446,7 @@ function renderHome(){
   const ratio = Math.min(1, t.kcal / targets.kcal);
   const fluid = $('#fluid');
   fluid.style.transform = 'translateY(' + Math.round(120 * (1 - ratio)) + 'px)';
-  fluid.setAttribute('fill', over ? '#B8422C' : '#2E6B50');
+  fluid.setAttribute('fill', over ? '#FF4D6D' : '#FF6A3D');
 
   bar('p', t.protein, targets.protein);
   bar('c', t.carbs, targets.carbs);
