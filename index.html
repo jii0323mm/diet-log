@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>今天吃了什麼</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="今天吃了">
+<meta name="theme-color" content="#EFF1EC">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="今天吃了">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADmUlEQVR4nO3d0W3bMBSGUaboPBmhM3SHPmaCTtApukwn6wMBI0DzF7EskpfyOQM4Iv3pSpAR++X17XuDj3xZfQDUJQ4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxEX4e++p9fv4e+Pq21bz9/DHrll0E/qSGLyUYkMuSyooz5Ruz5+XEoY5XTd94NKdHJcRgba527/yYHkTiIxEEkDqKT4xj3tI7POHf/TQ6i8+MwPFY5feeHTA59zDdiz0d98NZ5JjbBfp/KcgFuSInEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB9HY35VtvsR4sKHfJG5yEA2fHPd68i/VLzVoTQ4icRCJg0gcRMPjePIbzKFG7225yVHqdn2yamsvFwd1iIOoYhzVpuscBVc9Iw73pCNM2NWKk4MiisZRcMYOVXO9k+JwZTnXnP0sOjla1ZNphLIrrRsHy82L48AkLHtKnejAGqddo6tPjmv3UXx1U+NwW/q4mXtYfXK08qfXYfXXNTuOY+HX38d7HVvR5NG7YHLoY4sy2haXlZtr9LHRKtbEcfgk2GhnP3T4+Jfcy+80Obp9+9juyJfF8cipsN0ut8eOedUjgJfXt+9L/nD34Nu8xYOTfde4+LLy4Mrrj5B9y2jLJ0f3+HtccIRcYFHl/pH6mP5OLN/Nrv48+6QSk6OduqELE7nGKm6qxNHOPuEmb+7WB58UiqONGchDN3q7A75LrTi6QdfsEze9/hGeomIcbco93V3vRLXjmaNoHO1C9/yfUbCMtvwh2H/U3K8Ryq60bhyt8K6dqPIa615W3rvkJaZyFl3pyXFTfx/vtcWK9pgcNxcYIVtk0W0WR7dpIhtl0W0ZR7dRIttl0W0cR1c8kU2z6LaPoyuYyNZZdBeJ42Z5JRdo4uZqcdxMruRKTdxcNo73nuRD1NM9RRz/qvytGHU8aRx8xh6Pz1lCHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHER/AUXB2PtIAMqDAAAAAElFTkSuQmCC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFF1EC; --card:#FAFBF8; --ink:#17201A; --soft:#5E6A61;
+  --line:#D8DDD3; --green:#2E6B50; --wash:#C9DCD0;
+  --over:#B8422C; --amber:#9A7420;
+  --r:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Familjen Grotesk","PingFang TC","Noto Sans TC",system-ui,sans-serif;
+  font-size:16px; line-height:1.55;
+  padding:env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom));
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:520px;margin:0 auto;padding:0 20px}
+.screen{display:none}
+.screen.on{display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--green)}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:6px}
+
+/* ── 頂部日期 ── */
+.daybar{display:flex;align-items:baseline;gap:10px;padding:18px 0 4px}
+.daybar h1{margin:0;font-size:19px;font-weight:600;letter-spacing:-0.01em}
+.daybar span{color:var(--soft);font-size:14px}
+
+/* ── 碗 ── */
+.bowl{display:block;width:210px;height:auto;margin:14px auto 0}
+.bowl .fluid{transition:transform .9s cubic-bezier(.3,.8,.3,1),fill .4s}
+@media (prefers-reduced-motion:reduce){.bowl .fluid{transition:none}}
+.readout{text-align:center;margin-top:-6px}
+.readout .big{font-size:56px;font-weight:700;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.readout .cap{font-size:14px;color:var(--soft);margin-top:6px}
+.readout.over .big{color:var(--over)}
+
+/* ── 三大營養素 ── */
+.macros{margin:26px 0 4px;display:grid;gap:13px}
+.macro{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:12px;font-size:13px}
+.macro b{font-weight:500;color:var(--soft)}
+.track{height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.track i{display:block;height:100%;background:var(--green);border-radius:3px;transition:width .5s ease}
+.macro em{font-style:normal;color:var(--soft);font-variant-numeric:tabular-nums}
+
+/* ── 分隔 ── */
+.rule{height:1px;background:var(--line);margin:24px 0 18px}
+h2{font-size:15px;font-weight:600;margin:0 0 12px}
+
+/* ── 餐點列表 ── */
+.meal{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.meal:last-child{border-bottom:0}
+.meal .thumb{width:46px;height:46px;border-radius:10px;background:var(--wash);flex:none;object-fit:cover}
+.meal .body{flex:1;min-width:0}
+.meal .top{display:flex;justify-content:space-between;gap:10px}
+.meal .name{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meal .kcal{font-variant-numeric:tabular-nums;font-weight:600;flex:none}
+.meal .sub{font-size:13px;color:var(--soft);margin-top:2px}
+.meal .del{background:none;border:0;color:var(--soft);font-size:19px;line-height:1;padding:2px 4px;flex:none}
+.empty{color:var(--soft);font-size:14px;padding:8px 0 4px}
+
+/* ── 底部固定按鈕 ── */
+.dock{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(239,241,236,0) 0%,var(--paper) 34%);padding:20px 20px calc(16px + env(safe-area-inset-bottom));z-index:20}
+.dock .wrap{display:flex;gap:10px;padding:0}
+.btn{flex:1;border:0;border-radius:var(--r);padding:15px 16px;font-size:16px;font-weight:600;background:var(--green);color:#fff}
+.btn.ghost{flex:none;background:var(--card);color:var(--ink);border:1px solid var(--line);font-weight:500}
+.btn:disabled{opacity:.5}
+.btn:active{transform:translateY(1px)}
+
+/* ── 卡片／表單 ── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+label{display:block;font-size:13px;color:var(--soft);margin-bottom:5px}
+input[type=text],input[type=number],input[type=url],select,textarea{
+  width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+  background:#fff;font:inherit;color:inherit;-webkit-appearance:none;appearance:none;
+}
+textarea{resize:vertical;min-height:64px}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235E6A61' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{margin-bottom:14px}
+.field:last-child{margin-bottom:0}
+.hint{font-size:12.5px;color:var(--soft);margin-top:6px;line-height:1.5}
+
+/* ── 份量選擇 ── */
+.portions{display:flex;flex-wrap:wrap;gap:7px}
+.portions button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 0;flex:1 0 calc(25% - 6px);font-size:15px;font-variant-numeric:tabular-nums}
+.portions button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff;font-weight:600}
+input[type=range]{width:100%;-webkit-appearance:none;background:none;margin:14px 0 0}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--line);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--green);margin-top:-11px;border:3px solid var(--paper)}
+
+/* ── 信心度 ── */
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:5px 10px;border-radius:20px;background:var(--wash);color:var(--green)}
+.chip.medium{background:#F0E7CC;color:var(--amber)}
+.chip.low{background:#F2DCD6;color:var(--over)}
+
+/* ── 明細 ── */
+.items{margin:14px 0 0;padding:0;list-style:none;font-size:14px}
+.items li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line);color:var(--soft)}
+.items li span:first-child{color:var(--ink)}
+.items li span:last-child{font-variant-numeric:tabular-nums;flex:none}
+
+/* ── 大數字（審核頁） ── */
+.sum{display:flex;align-items:baseline;gap:8px;margin:2px 0 2px}
+.sum b{font-size:42px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.sum span{color:var(--soft);font-size:14px}
+.sumline{font-size:13.5px;color:var(--soft);font-variant-numeric:tabular-nums}
+
+/* ── 載入 ── */
+.loading{text-align:center;padding:56px 0}
+.loading img{width:150px;height:150px;object-fit:cover;border-radius:18px;margin-bottom:22px;filter:saturate(.9)}
+.loading p{color:var(--soft);font-size:14.5px;margin:0}
+.dots::after{content:'';animation:dots 1.4s steps(4,end) infinite}
+@keyframes dots{0%{content:''}25%{content:'·'}50%{content:'··'}75%{content:'···'}}
+
+/* ── 建議面板 ── */
+.sheet{position:fixed;inset:0;background:rgba(23,32,26,.35);z-index:40;display:none;align-items:flex-end}
+.sheet.on{display:flex}
+.sheet .panel{background:var(--paper);width:100%;max-height:78vh;overflow:auto;border-radius:20px 20px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
+.sheet h2{margin-bottom:10px}
+.sheet .text{white-space:pre-wrap;font-size:15px;line-height:1.7}
+.sheet .close{width:100%;margin-top:18px;border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:13px;font-weight:500}
+
+.err{background:#F7E3DE;border:1px solid #E2BDB3;color:var(--over);border-radius:10px;padding:11px 13px;font-size:14px;margin-bottom:14px}
+.topnav{display:flex;justify-content:space-between;align-items:center;padding:18px 0 6px}
+.topnav button{background:none;border:0;color:var(--soft);font-size:15px;padding:4px}
+.center{text-align:center}
+</style>
+</head>
+<body>
+
+<!-- ══════════ 首頁 ══════════ -->
+<section id="s-home" class="screen">
+  <div class="wrap">
+    <div class="daybar">
+      <h1 id="dateTitle">今天</h1>
+      <span id="dateSub"></span>
+      <button id="toSettings" style="margin-left:auto;background:none;border:0;color:var(--soft);font-size:14px">設定</button>
+    </div>
+
+    <svg class="bowl" viewBox="0 0 200 148" role="img" aria-labelledby="bowlLabel">
+      <title id="bowlLabel">今日熱量進度</title>
+      <defs>
+        <clipPath id="bowlClip">
+          <path d="M24 46 H176 L158 118 C156 126 149 130 141 130 H59 C51 130 44 126 42 118 Z"/>
+        </clipPath>
+      </defs>
+      <g clip-path="url(#bowlClip)">
+        <rect x="0" y="0" width="200" height="148" fill="#E3E8DF"/>
+        <rect id="fluid" class="fluid" x="0" y="46" width="200" height="120" fill="#2E6B50" style="transform:translateY(120px)"/>
+      </g>
+      <path d="M24 46 H176 L158 118 C156 126 149 130 141 130 H59 C51 130 44 126 42 118 Z" fill="none" stroke="#17201A" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="16" y="34" width="168" height="13" rx="6.5" fill="#17201A"/>
+    </svg>
+
+    <div class="readout" id="readout">
+      <div class="big" id="remainKcal">—</div>
+      <div class="cap" id="remainCap">還可以吃的熱量</div>
+    </div>
+
+    <div class="macros">
+      <div class="macro"><b>蛋白質</b><div class="track"><i id="pBar" style="width:0"></i></div><em id="pVal">—</em></div>
+      <div class="macro"><b>碳水</b><div class="track"><i id="cBar" style="width:0"></i></div><em id="cVal">—</em></div>
+      <div class="macro"><b>脂肪</b><div class="track"><i id="fBar" style="width:0"></i></div><em id="fVal">—</em></div>
+    </div>
+
+    <div class="rule"></div>
+    <h2>今天吃了</h2>
+    <div id="mealList"></div>
+  </div>
+</section>
+
+<!-- ══════════ 分析中 ══════════ -->
+<section id="s-loading" class="screen">
+  <div class="wrap loading">
+    <img id="loadPreview" alt="剛拍的照片">
+    <p class="dots" id="loadText">正在看你吃了什麼</p>
+  </div>
+</section>
+
+<!-- ══════════ 確認 ══════════ -->
+<section id="s-review" class="screen">
+  <div class="wrap">
+    <div class="topnav">
+      <button id="reviewBack">取消</button>
+      <span id="reviewConfidence"></span>
+    </div>
+
+    <div class="card">
+      <div class="field">
+        <label for="dishName">食物</label>
+        <input type="text" id="dishName">
+      </div>
+      <div class="sum"><b id="finalKcal">0</b><span>大卡</span></div>
+      <div class="sumline" id="finalMacros"></div>
+      <ul class="items" id="itemList"></ul>
+    </div>
+
+    <div class="card">
+      <label>你吃了多少</label>
+      <div class="portions" id="portionBtns">
+        <button data-p="0.25" aria-pressed="false">¼</button>
+        <button data-p="0.3333" aria-pressed="false">⅓</button>
+        <button data-p="0.5" aria-pressed="false">½</button>
+        <button data-p="0.6667" aria-pressed="false">⅔</button>
+        <button data-p="0.75" aria-pressed="false">¾</button>
+        <button data-p="1" aria-pressed="true">整份</button>
+        <button data-p="1.5" aria-pressed="false">1.5</button>
+        <button data-p="2" aria-pressed="false">2 份</button>
+      </div>
+      <input type="range" id="portionRange" min="5" max="250" step="5" value="100">
+      <div class="hint" id="portionHint">整份 · 倍率 1.00</div>
+    </div>
+
+    <div class="card">
+      <div class="field">
+        <label for="mealType">餐別</label>
+        <select id="mealType">
+          <option>早餐</option><option>午餐</option><option>點心</option><option>晚餐</option><option>宵夜</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="noteBox">備註（跟誰分、有沒有去皮去醬、喝完沒）</label>
+        <textarea id="noteBox" placeholder="例：跟同事分一半，醬汁沒喝"></textarea>
+      </div>
+      <button class="btn ghost" id="reanalyze" style="width:100%">照備註重新分析</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 設定 ══════════ -->
+<section id="s-settings" class="screen">
+  <div class="wrap">
+    <div class="topnav">
+      <button id="settingsBack">返回</button>
+      <span></span>
+    </div>
+    <h1 style="font-size:22px;margin:0 0 4px">設定</h1>
+    <p class="hint" style="margin-bottom:18px">資料只存在這支手機和你自己的 Google 雲端硬碟裡。</p>
+
+    <div id="setupErr"></div>
+
+    <div class="card">
+      <h2>你的身體資料</h2>
+      <div class="grid2">
+        <div class="field">
+          <label for="sex">生理性別</label>
+          <select id="sex"><option value="f">女</option><option value="m">男</option></select>
+        </div>
+        <div class="field">
+          <label for="age">年齡</label>
+          <input type="number" id="age" inputmode="numeric" placeholder="30">
+        </div>
+        <div class="field">
+          <label for="height">身高 cm</label>
+          <input type="number" id="height" inputmode="decimal" placeholder="165">
+        </div>
+        <div class="field">
+          <label for="weight">體重 kg</label>
+          <input type="number" id="weight" inputmode="decimal" placeholder="60">
+        </div>
+      </div>
+      <div class="field">
+        <label for="activity">日常活動量</label>
+        <select id="activity">
+          <option value="1.2">幾乎都坐著</option>
+          <option value="1.375" selected>每週運動 1–3 次</option>
+          <option value="1.55">每週運動 3–5 次</option>
+          <option value="1.725">每天運動或勞力工作</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pace">減重速度</label>
+        <select id="pace">
+          <option value="300">溫和 — 每週約 0.3 公斤</option>
+          <option value="500" selected>標準 — 每週約 0.5 公斤</option>
+          <option value="700">積極 — 每週約 0.7 公斤</option>
+        </select>
+      </div>
+      <div class="hint" id="targetPreview"></div>
+    </div>
+
+    <div class="card">
+      <h2>後端網址</h2>
+      <div class="field">
+        <input type="url" id="endpoint" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <div class="hint">你的 Apps Script 網頁應用程式網址。只存在這支手機上，貼一次就好。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 建議面板 ══════════ -->
+<div class="sheet" id="suggestSheet">
+  <div class="panel">
+    <h2>接下來這一餐</h2>
+    <div class="text" id="suggestText">思考中…</div>
+    <button class="close" id="suggestClose">知道了</button>
+  </div>
+</div>
+
+<!-- ══════════ 底部操作列 ══════════ -->
+<div class="dock" id="dock">
+  <div class="wrap">
+    <button class="btn ghost" id="askBtn" style="padding:15px 18px">建議</button>
+    <button class="btn" id="shootBtn">拍照記錄</button>
+    <button class="btn" id="saveBtn" style="display:none">存進今天</button>
+    <button class="btn" id="saveSettings" style="display:none">儲存設定</button>
+  </div>
+</div>
+
+<input type="file" id="fileInput" accept="image/*" capture="environment" hidden>
+
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const LS = { cfg:'diet.cfg', profile:'diet.profile' };
+const MEALS = [[5,'早餐'],[10.5,'午餐'],[15,'點心'],[17.5,'晚餐'],[22,'宵夜']];
+
+let cfg = load(LS.cfg, { endpoint: '' });
+let profile = load(LS.profile, null);
+let records = [];
+let draft = null;           // 待確認的分析結果
+let targets = null;
+
+function load(k, d){ try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch(e){ return d; } }
+function save(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
+function today(){ const d=new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function pad(n){ return String(n).padStart(2,'0'); }
+function nowTime(){ const d=new Date(); return pad(d.getHours())+':'+pad(d.getMinutes()); }
+
+// ───────── 目標熱量
+
+function computeTargets(p){
+  const bmr = 10*p.weight + 6.25*p.height - 5*p.age + (p.sex==='m' ? 5 : -161);
+  const tdee = bmr * Number(p.activity);
+  const floor = p.sex==='m' ? 1500 : 1200;
+  const kcal = Math.max(Math.round(tdee - Number(p.pace)), floor);
+  const protein = Math.round(1.6 * p.weight);
+  const fat = Math.round(0.8 * p.weight);
+  const carbs = Math.max(0, Math.round((kcal - protein*4 - fat*9) / 4));
+  return { kcal, protein, fat, carbs, tdee: Math.round(tdee) };
+}
+
+// ───────── 畫面切換
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+  $('#shootBtn').style.display  = id==='s-home' ? '' : 'none';
+  $('#askBtn').style.display    = id==='s-home' ? '' : 'none';
+  $('#saveBtn').style.display   = id==='s-review' ? '' : 'none';
+  $('#saveSettings').style.display = id==='s-settings' ? '' : 'none';
+  $('#dock').style.display = id==='s-loading' ? 'none' : '';
+  window.scrollTo(0,0);
+}
+
+// ───────── 後端
+
+function api(action, payload){
+  const body = JSON.stringify(Object.assign({action, secret:cfg.secret}, payload));
+  const unwrap = raw => {
+    const json = JSON.parse(raw);
+    if(!json.ok) throw new Error(json.error || '後端沒有回應內容。');
+    return json.data;
+  };
+
+  // 在 Apps Script 裡跑的時候用原生橋接，最穩
+  if(window.google && google.script && google.script.run){
+    return new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(raw => { try { resolve(unwrap(raw)); } catch(e){ reject(e); } })
+        .withFailureHandler(e => reject(new Error(e && e.message || '後端呼叫失敗。')))
+        .rpc(body);
+    });
+  }
+
+  // 之後如果把這頁搬到別的網站，走一般 HTTP
+  return fetch(cfg.endpoint, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},   // 避開 CORS 預檢
+    body
+  }).then(r => r.text()).then(unwrap);
+}
+
+// ───────── 照片壓縮
+
+function compress(file, max = 1024){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const scale = Math.min(1, max / Math.max(img.width, img.height));
+      const cv = document.createElement('canvas');
+      cv.width = Math.round(img.width*scale);
+      cv.height = Math.round(img.height*scale);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      const dataUrl = cv.toDataURL('image/jpeg', 0.78);
+      resolve({ dataUrl, base64: dataUrl.split(',')[1] });
+    };
+    img.onerror = () => reject(new Error('這張照片讀不出來，換一張試試。'));
+    img.src = url;
+  });
+}
+
+// ───────── 首頁渲染
+
+function totals(){
+  return records.reduce((a,r) => ({
+    kcal:a.kcal+r.kcal, protein:a.protein+r.protein, carbs:a.carbs+r.carbs, fat:a.fat+r.fat
+  }), {kcal:0,protein:0,carbs:0,fat:0});
+}
+
+function renderHome(){
+  const d = new Date();
+  $('#dateTitle').textContent = (d.getMonth()+1) + '月' + d.getDate() + '日';
+  $('#dateSub').textContent = '週' + '日一二三四五六'[d.getDay()];
+
+  const t = totals();
+  const left = targets.kcal - t.kcal;
+  const over = left < 0;
+
+  $('#readout').classList.toggle('over', over);
+  $('#remainKcal').textContent = Math.abs(Math.round(left));
+  $('#remainCap').textContent = over
+    ? '超過目標的熱量（目標 ' + targets.kcal + '）'
+    : '還可以吃的熱量（目標 ' + targets.kcal + '）';
+
+  const ratio = Math.min(1, t.kcal / targets.kcal);
+  const fluid = $('#fluid');
+  fluid.style.transform = 'translateY(' + Math.round(120 * (1 - ratio)) + 'px)';
+  fluid.setAttribute('fill', over ? '#B8422C' : '#2E6B50');
+
+  bar('p', t.protein, targets.protein);
+  bar('c', t.carbs, targets.carbs);
+  bar('f', t.fat, targets.fat);
+
+  const list = $('#mealList');
+  if(!records.length){
+    list.innerHTML = '<p class="empty">還沒有紀錄。按下面的按鈕拍一張。</p>';
+    return;
+  }
+  list.innerHTML = records.map(r =>
+    '<div class="meal">' +
+      (r.thumb ? '<img class="thumb" src="' + r.thumb + '" alt="">' : '<div class="thumb"></div>') +
+      '<div class="body">' +
+        '<div class="top">' +
+          '<span class="name">' + esc(r.dish) + '</span>' +
+          '<span class="kcal">' + Math.round(r.kcal) + '</span>' +
+        '</div>' +
+        '<div class="sub">' + r.time + ' · ' + esc(r.meal) +
+          (r.portion !== 1 ? ' · ' + portionLabel(r.portion) : '') +
+          (r.note ? ' · ' + esc(r.note) : '') +
+        '</div>' +
+      '</div>' +
+      '<button class="del" data-id="' + r.id + '" aria-label="刪除這筆">×</button>' +
+    '</div>').join('');
+}
+
+function bar(k, got, goal){
+  $('#'+k+'Bar').style.width = Math.min(100, goal ? got/goal*100 : 0) + '%';
+  $('#'+k+'Val').textContent = Math.round(got) + ' / ' + goal + ' g';
+}
+
+function esc(s){ return String(s ?? '').replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
+
+function portionLabel(p){
+  const map = {0.25:'¼ 份',0.3333:'⅓ 份',0.5:'½ 份',0.6667:'⅔ 份',0.75:'¾ 份',1:'整份',1.5:'1.5 份',2:'2 份'};
+  return map[p] || (Math.round(p*100) + '%');
+}
+
+// ───────── 拍照 → 分析
+
+$('#shootBtn').onclick = () => $('#fileInput').click();
+
+$('#fileInput').onchange = async (e) => {
+  const file = e.target.files[0];
+  e.target.value = '';
+  if(!file) return;
+  try {
+    const img = await compress(file);
+    $('#loadPreview').src = img.dataUrl;
+    $('#loadText').textContent = '正在看你吃了什麼';
+    show('s-loading');
+    const result = await api('analyze', { image: img.base64, mime: 'image/jpeg' });
+    draft = { img, result, portion: 1, note: '' };
+    openReview();
+  } catch(err){
+    alert(err.message);
+    show('s-home');
+  }
+};
+
+function openReview(){
+  const r = draft.result;
+  $('#dishName').value = r.dish_name || '餐點';
+  $('#noteBox').value = draft.note;
+
+  const cmap = { high:['high','估算算準','照片清楚，份量好判斷'], medium:['medium','估算普通',''], low:['low','估算誤差大',''] };
+  const c = cmap[r.confidence] || cmap.medium;
+  $('#reviewConfidence').innerHTML = '<span class="chip ' + c[0] + '">' + c[1] + '</span>';
+  $('#reviewConfidence').title = r.confidence_reason || '';
+
+  $('#itemList').innerHTML = (r.items||[]).map(i =>
+    '<li><span>' + esc(i.name) + ' <em style="opacity:.6">約 ' + Math.round(i.grams) + ' g</em></span>' +
+    '<span>' + Math.round(i.kcal) + ' 大卡</span></li>'
+  ).join('') + (r.confidence_reason
+    ? '<li><span style="color:var(--soft)">' + esc(r.confidence_reason) + '</span><span></span></li>' : '');
+
+  const hour = new Date().getHours() + new Date().getMinutes()/60;
+  let meal = '宵夜';
+  for(const [h,name] of MEALS) if(hour >= h) meal = name;
+  $('#mealType').value = meal;
+
+  setPortion(1);
+  show('s-review');
+}
+
+function scaled(){
+  const t = draft.result.total;
+  const p = draft.portion;
+  return {
+    kcal:t.kcal*p, protein:t.protein*p, carbs:t.carbs*p,
+    fat:t.fat*p, fiber:(t.fiber||0)*p, sodium:(t.sodium||0)*p
+  };
+}
+
+function setPortion(p){
+  draft.portion = p;
+  const s = scaled();
+  $('#finalKcal').textContent = Math.round(s.kcal);
+  $('#finalMacros').textContent =
+    '蛋白 ' + Math.round(s.protein) + ' g　碳水 ' + Math.round(s.carbs) +
+    ' g　脂肪 ' + Math.round(s.fat) + ' g　鈉 ' + Math.round(s.sodium) + ' mg';
+  $('#portionHint').textContent = portionLabel(p) + ' · 倍率 ' + p.toFixed(2);
+  $('#portionRange').value = Math.round(p*100);
+  document.querySelectorAll('#portionBtns button').forEach(b =>
+    b.setAttribute('aria-pressed', String(Math.abs(Number(b.dataset.p) - p) < 0.005)));
+}
+
+$('#portionBtns').onclick = e => {
+  const b = e.target.closest('button');
+  if(b) setPortion(Number(b.dataset.p));
+};
+$('#portionRange').oninput = e => setPortion(Number(e.target.value)/100);
+$('#reviewBack').onclick = () => { draft = null; show('s-home'); };
+
+$('#reanalyze').onclick = async () => {
+  const note = $('#noteBox').value.trim();
+  if(!note) return alert('先在備註欄寫下你想補充的資訊，例如「這是雞胸不是雞腿」。');
+  try{
+    $('#loadPreview').src = draft.img.dataUrl;
+    $('#loadText').textContent = '照你的備註重新算一次';
+    show('s-loading');
+    draft.result = await api('analyze', { image: draft.img.base64, mime:'image/jpeg', hint: note });
+    draft.note = note;
+    openReview();
+  }catch(err){ alert(err.message); show('s-review'); }
+};
+
+// ───────── 儲存
+
+$('#saveBtn').onclick = async () => {
+  const btn = $('#saveBtn');
+  btn.disabled = true; btn.textContent = '儲存中…';
+  const s = scaled();
+  const rec = {
+    id: Date.now() + '-' + Math.random().toString(36).slice(2,7),
+    date: today(), time: nowTime(),
+    meal: $('#mealType').value,
+    dish: $('#dishName').value.trim() || '餐點',
+    portion: draft.portion,
+    note: $('#noteBox').value.trim(),
+    kcal:s.kcal, protein:s.protein, carbs:s.carbs, fat:s.fat, fiber:s.fiber, sodium:s.sodium,
+    confidence: draft.result.confidence,
+    items: draft.result.items
+  };
+  try{
+    await api('save', { record: rec, image: draft.img.base64, mime:'image/jpeg' });
+    rec.thumb = draft.img.dataUrl;
+    records.push(rec);
+    records.sort((a,b) => a.time < b.time ? -1 : 1);
+    draft = null;
+    renderHome();
+    show('s-home');
+  }catch(err){
+    alert('存不進去：' + err.message);
+  }finally{
+    btn.disabled = false; btn.textContent = '存進今天';
+  }
+};
+
+$('#mealList').onclick = async e => {
+  const b = e.target.closest('.del');
+  if(!b) return;
+  if(!confirm('刪掉這筆紀錄？')) return;
+  try{
+    await api('remove', { id: b.dataset.id });
+    records = records.filter(r => r.id !== b.dataset.id);
+    renderHome();
+  }catch(err){ alert(err.message); }
+};
+
+// ───────── 建議
+
+$('#askBtn').onclick = async () => {
+  $('#suggestSheet').classList.add('on');
+  $('#suggestText').textContent = '想想看…';
+  const t = totals();
+  try{
+    const res = await api('suggest', {
+      remaining: {
+        kcal: targets.kcal - t.kcal, protein: targets.protein - t.protein,
+        carbs: targets.carbs - t.carbs, fat: targets.fat - t.fat
+      },
+      eaten: records.map(r => r.dish),
+      hour: new Date().getHours()
+    });
+    $('#suggestText').textContent = res.text;
+  }catch(err){
+    $('#suggestText').textContent = '拿不到建議：' + err.message;
+  }
+};
+$('#suggestClose').onclick = () => $('#suggestSheet').classList.remove('on');
+$('#suggestSheet').onclick = e => { if(e.target.id === 'suggestSheet') $('#suggestSheet').classList.remove('on'); };
+
+// ───────── 設定頁
+
+function fillSettings(){
+  const p = profile || {};
+  $('#sex').value = p.sex || 'f';
+  $('#age').value = p.age || '';
+  $('#height').value = p.height || '';
+  $('#weight').value = p.weight || '';
+  if(p.activity) $('#activity').value = p.activity;
+  if(p.pace) $('#pace').value = p.pace;
+  $('#endpoint').value = cfg.endpoint || '';
+  previewTarget();
+}
+
+function readSettings(){
+  return {
+    sex: $('#sex').value,
+    age: Number($('#age').value),
+    height: Number($('#height').value),
+    weight: Number($('#weight').value),
+    activity: $('#activity').value,
+    pace: $('#pace').value
+  };
+}
+
+function previewTarget(){
+  const p = readSettings();
+  if(!(p.age && p.height && p.weight)) { $('#targetPreview').textContent = ''; return; }
+  const t = computeTargets(p);
+  $('#targetPreview').textContent =
+    '估計每日消耗 ' + t.tdee + ' 大卡，目標攝取 ' + t.kcal + ' 大卡：蛋白 ' +
+    t.protein + ' g、碳水 ' + t.carbs + ' g、脂肪 ' + t.fat + ' g。';
+}
+['#sex','#age','#height','#weight','#activity','#pace'].forEach(s => $(s).addEventListener('input', previewTarget));
+
+$('#toSettings').onclick = () => { fillSettings(); show('s-settings'); };
+$('#settingsBack').onclick = () => { if(profile && cfg.endpoint) show('s-home'); else alert('先把身體資料和後端網址填完。'); };
+
+$('#saveSettings').onclick = async () => {
+  const p = readSettings();
+  const err = $('#setupErr');
+  err.innerHTML = '';
+  if(!(p.age > 0 && p.height > 0 && p.weight > 0)) {
+    err.innerHTML = '<div class="err">年齡、身高、體重都要填。</div>';
+    return;
+  }
+  const url = $('#endpoint').value.trim();
+  if(!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(url)){
+    err.innerHTML = '<div class="err">後端網址看起來不對，應該是 script.google.com/macros/s/…/exec 這種格式。</div>';
+    return;
+  }
+  const btn = $('#saveSettings');
+  btn.disabled = true; btn.textContent = '測試連線中…';
+  const prev = cfg;
+  cfg = { endpoint: url };
+  try{
+    await api('day', { date: today() });
+  }catch(e){
+    cfg = prev;
+    err.innerHTML = '<div class="err">連不上後端：' + esc(e.message) + '</div>';
+    btn.disabled = false; btn.textContent = '儲存設定';
+    return;
+  }
+  store(LS.cfg, cfg);
+  profile = p;
+  save(LS.cfg, cfg);
+  save(LS.profile, profile);
+  targets = computeTargets(profile);
+  btn.disabled = false; btn.textContent = '儲存設定';
+  await refresh();
+  show('s-home');
+};
+
+// ───────── 啟動
+
+async function refresh(){
+  try{
+    const data = await api('day', { date: today() });
+    records = data.records || [];
+  }catch(e){ /* 離線時保留畫面上已有的紀錄 */ }
+  renderHome();
+}
+
+(async function start(){
+  if(!profile || !cfg.endpoint){
+    fillSettings();
+    show('s-settings');
+    return;
+  }
+  targets = computeTargets(profile);
+  renderHome();
+  show('s-home');
+  await refresh();
+})();
+
+document.addEventListener('visibilitychange', () => {
+  if(!document.hidden && profile && cfg.endpoint) refresh();
+});
+</script>
+</body>
+</html>
