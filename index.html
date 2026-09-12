@@ -703,7 +703,6 @@ $('#saveSettings').onclick = async () => {
     btn.disabled = false; btn.textContent = '儲存設定';
     return;
   }
-  store(LS.cfg, cfg);
   profile = p;
   save(LS.cfg, cfg);
   save(LS.profile, profile);
